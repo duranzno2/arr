@@ -23,6 +23,7 @@ services:
       - 8686:8686
       - 6767:6767
       - 5055:5055
+      - 8191:8191
     volumes:
       - ./config/gluetun:/gluetun
     restart: unless-stopped
@@ -142,9 +143,9 @@ services:
       - 8096:8096
     restart: unless-stopped
 
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: sb-seerr
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
     network_mode: "service:gluetun"
     depends_on:
       gluetun:
@@ -152,6 +153,4 @@ services:
     environment:
       - LOG_LEVEL=info
       - TZ=${TZ}
-    volumes:
-      - ./config/jellyseerr:/app/config
     restart: unless-stopped
