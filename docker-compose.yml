@@ -22,7 +22,6 @@ services:
       - 7878:7878
       - 8686:8686
       - 6767:6767
-      - 8096:8096
       - 5055:5055
     volumes:
       - ./config/gluetun:/gluetun
@@ -132,10 +131,6 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: sb-jellyfin-media
-    network_mode: "service:gluetun"
-    depends_on:
-      gluetun:
-        condition: service_healthy
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -143,6 +138,8 @@ services:
     volumes:
       - ./config/jellyfin:/config
       - ./data:/data
+    ports:
+      - 8096:8096
     restart: unless-stopped
 
   jellyseerr:
