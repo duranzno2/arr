@@ -129,20 +129,6 @@ services:
       - ./data:/data
     restart: unless-stopped
 
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: sb-jellyfin-media
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ./config/jellyfin:/config
-      - ./data:/data
-    ports:
-      - 8096:8096
-    restart: unless-stopped
-
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr

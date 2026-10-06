@@ -1,0 +1,18 @@
+# Separate compose project so jellyfin is unaffected by gluetun/media-stack
+# failures or `docker compose down` on the main stack.
+name: jellyfin
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: sb-jellyfin-media
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./config/jellyfin:/config
+      - ./data:/data
+    ports:
+      - 8096:8096
+    restart: unless-stopped

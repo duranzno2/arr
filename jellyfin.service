@@ -1,0 +1,16 @@
+[Unit]
+Description=Jellyfin (docker compose)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/ale/homeserver/media-stack
+ExecStart=/usr/bin/docker compose -f jellyfin.compose.yml up -d
+ExecStop=/usr/bin/docker compose -f jellyfin.compose.yml stop
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target
